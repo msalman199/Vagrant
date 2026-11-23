@@ -1,0 +1,80 @@
+Lab 3: Automating System Updates with Bash
+Lab Objective:
+In this lab, you will learn how to automate system updates and package management tasks using bash scripting. You will write a script to update the system using apt, set up a cron job to run the script weekly, and verify the updates using logs.
+
+Prerequisites:
+Start your Al Nafi-provided Ubuntu machine and ensure it is running.
+
+Ensure that you have administrative rights to install packages and update the system. You will need sudo privileges to run the update commands.
+
+Lab Tasks:
+1. Write a script to update the system using apt:
+
+First, open a terminal and create a new bash script file for system updates:
+
+nano update_system.sh
+Add the following content to the script to update the system:
+
+#!/bin/bash
+
+# Update the package lists for upgrades
+echo "Updating package lists..."
+sudo apt update
+
+# Upgrade all packages to the latest version
+echo "Upgrading installed packages..."
+sudo apt upgrade -y
+
+# Remove unnecessary packages
+echo "Removing unnecessary packages..."
+sudo apt autoremove -y
+
+# Clean up local repository of retrieved package files
+echo "Cleaning up package cache..."
+sudo apt clean
+
+# Output the update status
+echo "System updated successfully!"
+Save and exit the file (CTRL + O, then CTRL + X).
+
+Make the script executable:
+
+chmod +x update_system.sh
+Run the script manually to ensure it works:
+
+./update_system.sh
+2. Set up a cron job to automatically run the script every week:
+
+Open the cron jobs configuration file for your user:
+
+crontab -e
+In the crontab editor, add the following line to schedule the script to run every Sunday at 2:00 AM:
+
+0 2 * * SUN /path/to/update_system.sh >> /path/to/update_log.txt 2>&1
+Replace /path/to/update_system.sh with the actual full path of your update_system.sh script.
+
+Replace /path/to/update_log.txt with the location where you want to store the logs of the update process (e.g., ~/update_log.txt).
+
+This cron job will execute the script every Sunday at 2:00 AM and redirect the output (including errors) to a log file for later review.
+
+Save and exit the crontab editor (CTRL + O, then CTRL + X).
+
+You can list your cron jobs to verify:
+
+crontab -l
+3. Verify the updates using logs:
+
+After the cron job has run for the first time (next Sunday at 2:00 AM), you can check the log file to see the output of the update process:
+
+cat /path/to/update_log.txt
+This log will contain detailed information about the system update, including package updates, removals, and any errors that occurred during the process.
+
+You can also check the system’s last update by reviewing the apt logs located at:
+
+cat /var/log/apt/history.log
+This log contains a history of package updates, installations, and removals.
+
+Conclusion:
+In this lab, you have learned to automate the process of system updates and package management using bash scripting. By writing a script to update the system with apt, you have made it easy to ensure that your system remains up-to-date. Furthermore, you have automated the process with a cron job, ensuring that updates are applied weekly without manual intervention. Finally, you learned how to verify the updates by checking logs, allowing you to track the success or failure of the update process.
+
+By completing this lab, you now have a fully automated system update process, which is a key part of maintaining a secure and efficient Linux system.
