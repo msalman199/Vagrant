@@ -1,0 +1,91 @@
+Lab 1: Introduction to Vagrant and Shell Scripting
+Lab Objective:
+This lab is designed to introduce you to the basics of Vagrant and Shell scripting concepts. You will learn how to set up a basic Vagrant environment, write shell scripts to automate tasks, and run these scripts on a Vagrant-managed machine.
+
+Prerequisites:
+Start your Al Nafi-provided Ubuntu machine. Ensure that you have a working Ubuntu machine with proper administrative rights.
+
+Install Vagrant and VirtualBox on your machine:
+
+Ensure that you have Vagrant installed on the machine.
+
+Install VirtualBox as it is required for Vagrant to manage virtual machines. VirtualBox is an open-source tool for creating virtual environments.
+
+Install VirtualBox:
+
+sudo apt update
+sudo apt install virtualbox
+Install Vagrant:
+
+sudo apt update
+sudo apt install vagrant
+Lab Tasks:
+1. Set up a basic Vagrant environment:
+
+Open your terminal.
+
+Create a new directory for your Vagrant environment:
+
+mkdir vagrant_lab
+cd vagrant_lab
+Initialize a basic Vagrant environment:
+
+vagrant init
+This will create a Vagrantfile in the directory. The file will have default settings for your virtual machine.
+
+Open the Vagrantfile and ensure it is set to use Ubuntu. You can modify the file to set the box to ubuntu/bionic64 (Ubuntu 18.04). You should see a line like this:
+
+config.vm.box = "ubuntu/bionic64"
+Now, run the following command to start the Vagrant virtual machine:
+
+vagrant up
+To connect to your virtual machine:
+
+vagrant ssh
+2. Write a shell script to display system information:
+
+Once you are inside the Vagrant virtual machine, create a simple shell script to display system information:
+
+nano system_info.sh
+Add the following code to the file:
+
+#!/bin/bash
+echo "System Information:"
+echo "-------------------"
+uname -a
+echo ""
+echo "Disk Usage:"
+df -h
+echo ""
+echo "Memory Usage:"
+free -h
+Save the file by pressing CTRL + O and exit by pressing CTRL + X.
+
+Make the script executable:
+
+chmod +x system_info.sh
+Run the script to see the system information:
+
+./system_info.sh
+3. Test and run scripts on the Vagrant machine:
+
+To test the script on your Vagrant machine, simply run the following command within the SSH session of the Vagrant VM:
+
+./system_info.sh
+The script should output information about your system's architecture, disk usage, and memory usage.
+
+Exit the Vagrant machine after testing:
+
+exit
+Conclusion:
+In this lab, you successfully set up a Vagrant environment and learned how to create and run shell scripts. The Vagrant virtual machine provided a safe and isolated environment to practice automation and system management tasks using shell scripting. This foundational knowledge will be useful for automating administrative tasks and managing systems efficiently.
+
+By completing this lab, you have:
+
+Set up a virtual machine using Vagrant.
+
+Written a shell script to display system information.
+
+Run and tested the script in a Vagrant-managed environment.
+
+These skills are critical for automating tasks and working with virtualized environments, forming the basis for more complex DevOps workflows.

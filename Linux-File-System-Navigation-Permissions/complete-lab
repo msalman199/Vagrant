@@ -1,0 +1,124 @@
+Lab 2: Linux File System Navigation & Permissions
+Lab Objective:
+This lab focuses on learning how to navigate the Linux file system and manage file permissions using bash scripting. You will write scripts to create directories and files, set permissions using chmod and chown, and automate the cleanup of temporary files.
+
+Prerequisites:
+Start your Al Nafi-provided Ubuntu machine and ensure it's running.
+
+Install basic Linux tools (if not already installed):
+
+Ensure that you have basic Linux commands like bash, chmod, chown, mkdir, and rm available.
+
+These commands are usually pre-installed on any Ubuntu machine, but in case of any missing tools, install them using:
+
+sudo apt update
+sudo apt install coreutils
+Lab Tasks:
+1. Write a script to create directories and files:
+
+First, open a terminal and create a new shell script file:
+
+nano create_files_and_dirs.sh
+Add the following script content:
+
+#!/bin/bash
+
+# Create directories
+echo "Creating directories..."
+mkdir -p ~/lab2/directory1
+mkdir -p ~/lab2/directory2
+
+# Create files inside directories
+echo "Creating files..."
+touch ~/lab2/directory1/file1.txt
+touch ~/lab2/directory2/file2.txt
+
+# Confirm creation
+echo "Directories and files created:"
+ls -l ~/lab2
+Save the file by pressing CTRL + O, and exit by pressing CTRL + X.
+
+Make the script executable:
+
+chmod +x create_files_and_dirs.sh
+Run the script:
+
+./create_files_and_dirs.sh
+This will create two directories and two files in your home directory (~/lab2/), and list them to confirm the creation.
+
+2. Set permissions using chmod and chown:
+
+Now, modify the script to set permissions and ownership for the created directories and files.
+
+nano create_files_and_dirs.sh
+Add the following commands to set permissions and ownership:
+
+#!/bin/bash
+
+# Create directories and files (as before)
+mkdir -p ~/lab2/directory1
+mkdir -p ~/lab2/directory2
+touch ~/lab2/directory1/file1.txt
+touch ~/lab2/directory2/file2.txt
+
+# Set permissions: read-write for owner, read-only for others
+chmod 744 ~/lab2/directory1/file1.txt
+chmod 744 ~/lab2/directory2/file2.txt
+chmod 755 ~/lab2/directory1
+chmod 755 ~/lab2/directory2
+
+# Set ownership: change ownership to a specific user (you can replace 'your_username' with your actual username)
+chown your_username:your_username ~/lab2/directory1/file1.txt
+chown your_username:your_username ~/lab2/directory2/file2.txt
+
+# Confirm changes
+echo "Permissions and ownership updated:"
+ls -l ~/lab2
+Save the file and make it executable (if not already done):
+
+chmod +x create_files_and_dirs.sh
+Run the script again:
+
+./create_files_and_dirs.sh
+The script should create the directories and files, set the permissions (744 for files and 755 for directories), and change the ownership to your user.
+
+3. Create an automated cleanup script for temporary files:
+
+For the cleanup task, you will create a script that deletes files older than a certain number of days from the temporary directory.
+
+Open a new file for the cleanup script:
+
+nano cleanup_temp_files.sh
+Add the following content to delete files older than 7 days:
+
+#!/bin/bash
+
+# Define the directory to clean
+temp_dir=~/lab2
+
+# Find and remove files older than 7 days
+echo "Cleaning up files older than 7 days in $temp_dir..."
+find $temp_dir -type f -mtime +7 -exec rm -f {} \;
+
+# Confirm cleanup
+echo "Cleanup complete."
+Save and exit (CTRL + O, CTRL + X).
+
+Make the script executable:
+
+chmod +x cleanup_temp_files.sh
+Run the script:
+
+./cleanup_temp_files.sh
+This will delete files in the ~/lab2 directory older than 7 days.
+
+Conclusion:
+In this lab, you have learned essential Linux file system management tasks, including:
+
+Navigating and creating directories and files using bash scripting.
+
+Setting file permissions and ownership with chmod and chown.
+
+Automating file cleanup based on age using find and rm.
+
+These skills are crucial for managing files, ensuring proper access control, and maintaining a clean working environment in Linux-based systems. By completing this lab, you can now automate the process of organizing and securing files within your Linux system using simple bash scripts.
